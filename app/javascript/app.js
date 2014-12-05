@@ -24,19 +24,19 @@ muse.controller("QueryController", function($scope,$http, $state, EchonestFactor
 
 //Search for songs based on query
   $scope.search = function(artist,title){
-    EchonestFactory.search(artist,title);
-    $state.go('playlist');
+     $scope.selectedArtist = EchonestFactory.search(artist,title)[0];
+    // $state.go('playlist');
   }
 
 });
 
 
 
-muse.controller("PlaylistController", function($scope,$http, PlaylistFactory) {
+muse.controller("PlaylistController", function($scope,$http, PlaylistFactory, EchonestFactory) {
   // var playlist;
-
   $scope.search = function(artist, danceability, energy){
-    PlaylistFactory.search(artist, danceability, energy);
+    $scope.playlist = PlaylistFactory.search($scope.selectedArtist.artist_id, danceability, energy);
+    // $scope.initialDanceability = PlaylistFactory.search($scope.selectedArtist, danceability, energy)[0]
   };
 
 });
@@ -45,6 +45,10 @@ muse.controller("PlaylistController", function($scope,$http, PlaylistFactory) {
 
 muse.controller("YoutubeController", function($scope,$http, Youtube) {
 
+  $scope.search = function(artist, title){
+    YoutubeFactory.search($scope.selectedArtist, );
+    // $scope.initialDanceability = PlaylistFactory.search($scope.selectedArtist, danceability, energy)[0]
+  };
 
 
 });
